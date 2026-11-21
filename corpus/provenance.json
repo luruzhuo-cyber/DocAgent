@@ -1,0 +1,56 @@
+{
+  "authored_synthetic": false,
+  "files": [
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/first-steps.md",
+      "file": "first-steps.md",
+      "sha256": "02ac2739d670ff744537fd20d389c0848e12cb15adb0748daa4b653601316aef",
+      "bytes": 14043
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/path-params.md",
+      "file": "path-params.md",
+      "sha256": "55a74bc3ccb5c168ea5b52a516cbf699ba21e42410161911e72295b73a5f5152",
+      "bytes": 7980
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/query-params.md",
+      "file": "query-params.md",
+      "sha256": "fedcbecdcd8efce33304930f0dd64f964c8041b91b3c61a903a8b83d52c9dd7c",
+      "bytes": 4487
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/body.md",
+      "file": "body.md",
+      "sha256": "e935e988198c6ce17f9881db42f809c659888c25779cf2e663a5dfc023ad9cd2",
+      "bytes": 6017
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/response-status-code.md",
+      "file": "response-status-code.md",
+      "sha256": "c96e83e121189c7dfb0120affdd1f47921f933d2a42b4ba496d775b2e7d9ba87",
+      "bytes": 3711
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/handling-errors.md",
+      "file": "handling-errors.md",
+      "sha256": "7b8e71ebe4e9f7f3ed07456405d250356aeac5e6b9960bd395b7a07ad6ed4d55",
+      "bytes": 8411
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/dependencies/index.md",
+      "file": "dependencies-index.md",
+      "sha256": "480441f352f8ce0e9135caeef28136ac51f1f03d8d030123aa8b3e147e325e5f",
+      "bytes": 8833
+    },
+    {
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/security/first-steps.md",
+      "file": "security-first-steps.md",
+      "sha256": "8173cec1921bf7f8855028652930d04c2ac58f9315bf02b50259c4b8aca007e6",
+      "bytes": 7551
+    }
+  ],
+  "repository": "https://github.com/fastapi/fastapi",
+  "license": "MIT",
+  "commit": "05e6df7e906c3decba377c37548019973f40bf15"
+}

@@ -1,0 +1,44 @@
+{
+  "hits": [
+    {
+      "id": "be19b5877cacb7a1",
+      "document": "dependencies-index.md",
+      "section": "在“dependant”中声明依赖项 { #declare-the-dependency-in-the-dependant }",
+      "text": "只要把它传给 `Depends`，**FastAPI** 就知道该怎么做了。///",
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/dependencies/index.md"
+    },
+    {
+      "id": "9cf401c67830fae9",
+      "document": "security-first-steps.md",
+      "section": "使用 { #use-it }",
+      "text": "### 使用 { #use-it }现在你可以通过 `Depends` 将 `oauth2_scheme` 作为依赖传入。{* ../../docs_src/security/tutorial001.py hl[12] *}该依赖会提供一个 `str`，赋值给*路径操作函数*的参数 `token`。**FastAPI** 会据此在 OpenAPI 架构（以及自动生成的 API 文档）中定义一个“安全方案”。/// note | 技术细节**FastAPI** 之所以知道可以使用（在依赖中声明的）`OAuth2PasswordBearer` 在 OpenAPI 中定义安全方案，是因为它继承自 `fastapi.security.oauth2.OAuth2`，而后者又继承自 `fastapi.security.base.SecurityBase`。所有与 OpenAPI（以及自动 API 文档）集成的安全工具都继承自 `SecurityBase`，这就是 **FastAPI** 能将它们集成到 OpenAPI 的方式。///",
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/security/first-steps.md"
+    },
+    {
+      "id": "4f46d232fc4cfe88",
+      "document": "first-steps.md",
+      "section": "第一步 { #first-steps }",
+      "text": "# 第一步 { #first-steps }\n最简单的 FastAPI 文件可能像下面这样：{* ../../docs_src/first_steps/tutorial001.py *}将其复制到 `main.py` 文件中。/// tip | 提示FastAPI 有一个[官方 VS Code 扩展](https://marketplace.visualstudio.com/items?itemName=FastAPILabs.fastapi-vscode)（以及 Cursor），它提供了很多功能，包括路径操作浏览器、路径操作搜索、测试中的 CodeLens 导航（从测试跳转到定义），以及 FastAPI Cloud 部署和日志，全部都可以在你的编辑器中完成。///运行实时服务器：<div class=\"termy\">```console\n$ <font color=\"#4E9A06\">uv run fastapi</font> dev  <span style=\"background-color:#009485\"><font color=\"#D3D7CF\"> FastAPI </font></span>  Starting development server 🚀             Searching for package file structure from directories\n             with <font color=\"#3465A4\">__init__.py</font> files\n             Importing from <font color=\"#75507B\">/home/user/code/</font><font color=\"#AD7FA8\">awesomeapp</font>",
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/first-steps.md"
+    },
+    {
+      "id": "e150f2d0ad601b4a",
+      "document": "security-first-steps.md",
+      "section": "安全 - 第一步 { #security-first-steps }",
+      "text": "# 安全 - 第一步 { #security-first-steps }假设你的**后端** API 位于某个域名下。而**前端**在另一个域名，或同一域名的不同路径（或在移动应用中）。你希望前端能通过**username** 和 **password** 与后端进行身份验证。我们可以用 **OAuth2** 在 **FastAPI** 中实现它。但为了节省你的时间，不必为获取少量信息而通读冗长的规范。我们直接使用 **FastAPI** 提供的安全工具。",
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/security/first-steps.md"
+    },
+    {
+      "id": "d95476d35952b04a",
+      "document": "security-first-steps.md",
+      "section": "**FastAPI** 的 `OAuth2PasswordBearer` { #fastapis-oauth2passwordbearer }",
+      "text": "## **FastAPI** 的 `OAuth2PasswordBearer` { #fastapis-oauth2passwordbearer }**FastAPI** 在不同抽象层级提供了多种安全工具。本示例将使用 **OAuth2** 的 **Password** 流程并配合 **Bearer** 令牌，通过 `OAuth2PasswordBearer` 类来实现。/// note | 注意“Bearer” 令牌并非唯一选项。但它非常适合我们的用例。对于大多数用例，它也可能是最佳选择，除非你是 OAuth2 专家，并明确知道为何其他方案更适合你的需求。在那种情况下，**FastAPI** 同样提供了相应的构建工具。///创建 `OAuth2PasswordBearer` 类实例时，需要传入 `tokenUrl` 参数。该参数包含客户端（运行在用户浏览器中的前端）用来发送 `username` 和 `password` 以获取令牌的 URL。{* ../../docs_src/security/tutorial001.py hl[8] *}/// tip | 提示这里的 `tokenUrl=\"token\"` 指向的是尚未创建的相对 URL `token`，等价于 `./token`。因为使用的是相对 URL，若你的 API 位于 `https://example.com/`，它将指向 `https://example.com/token`；若你的 API 位于 `https://example.com/api/v1/`，它将指向 `https://example.com/api/v1/token`。使用相对 URL 很重要，这能确保你的应用在诸如[使用代理](../../advanced/behind-a-proxy.md)等高级用例中依然正常工作。///",
+      "source": "https://raw.githubusercontent.com/fastapi/fastapi/05e6df7e906c3decba377c37548019973f40bf15/docs/zh/docs/tutorial/security/first-steps.md"
+    }
+  ],
+  "trace": {
+    "mode": "dense",
+    "rerank": false,
+    "candidates": 20
+  }
+}

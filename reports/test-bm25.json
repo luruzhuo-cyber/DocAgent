@@ -1,0 +1,349 @@
+{
+  "config": {
+    "strategy": "structural",
+    "mode": "bm25",
+    "rerank": false,
+    "live": false,
+    "split": "test",
+    "output": "reports/test-bm25.json"
+  },
+  "label_warning": "Agent-authored fact-specific labels were checked against pinned source prose, not human reviewed. Test is provisional, not a production benchmark.",
+  "rubric": {
+    "manual_correctness": "Human: 0 incorrect, 1 partly correct, 2 fully correct. Calculation must match exact result. Unanswerable must abstain.",
+    "manual_citation_support": "Human: 0 unsupported, 1 partial, 2 every material claim supported by returned current-turn evidence.",
+    "multi": "Recall denominator counts expected document/section pairs, not all possible equivalent chunks."
+  },
+  "metrics": {
+    "hit_at_5": 1.0,
+    "recall_at_5": 1.0,
+    "mrr": 0.8809523809523808,
+    "retrieval_seconds": 0.001418106666399884,
+    "p95_retrieval_seconds": 0.0021616999993057107
+  },
+  "retrieval_evaluable": 14,
+  "results": [
+    {
+      "id": "Q03",
+      "question": "未传分页参数时，示例中的 skip 和 limit 各是多少？",
+      "reference_answer": "skip=0，limit=10。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "5009ed69072a262f",
+        "0d1267ce6343772b",
+        "d95476d35952b04a",
+        "25b6a51da48360f8"
+      ],
+      "retrieval_seconds": 0.002036500000031083,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q06",
+      "question": "short=yes 能转换成布尔真吗？还有哪些写法？",
+      "reference_answer": "可以，1、True、true、on、yes 都会转换为 True。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "9183ce454a4306b4",
+        "afb870260037595f",
+        "a998b7f65f40d73d",
+        "a8f1ad3f8c682769",
+        "e3c0eaa1d093ae33"
+      ],
+      "retrieval_seconds": 0.0015176999995674123,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q09",
+      "question": "文档建议用哪个最常见 HTTP 方法发送数据？",
+      "reference_answer": "POST 最常见，也可使用 PUT、DELETE 或 PATCH。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "e2fda6524d4949ce",
+        "96f1dee682d78428",
+        "25b6a51da48360f8",
+        "c4a4c4765229b915",
+        "715b10a471c4d9a8"
+      ],
+      "retrieval_seconds": 0.0015083999996932107,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q12",
+      "question": "请求模型的属性什么情况下可选？",
+      "reference_answer": "包含默认值时可选，例如默认值为 None。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "1a8505f8b9e0a8a9",
+        "e18980350303b7d4",
+        "5299da6d5d99c5dc",
+        "afb870260037595f",
+        "3772069da1647a01"
+      ],
+      "retrieval_seconds": 0.0012065000000802684,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q15",
+      "question": "与直接接收 dict 相比，接收 Pydantic 模型给编辑器带来什么？",
+      "reference_answer": "属性类型提示、补全及错误类型操作检查。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "0a2c838450f0004e",
+        "f1cbcda29bf3b3ff",
+        "be8c65b3dda3e07f",
+        "96f1dee682d78428",
+        "4e6098f7907c951d"
+      ],
+      "retrieval_seconds": 0.001552599999740778,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q18",
+      "question": "item_id 声明 int，却访问 /items/foo，会出现什么？",
+      "reference_answer": "数据校验失败，返回指出路径 item_id 的整数解析错误。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "69322d201fe72b63",
+        "eb847693047e8f35",
+        "e936fb9705ae97fa",
+        "9183ce454a4306b4",
+        "264d06f5910ac300"
+      ],
+      "retrieval_seconds": 0.0012709000002359971,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q21",
+      "question": "除 Swagger UI 外还能访问哪个路径查看 ReDoc？",
+      "reference_answer": "/redoc。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "e364c092c108be4e",
+        "c5b7b197b02879e7",
+        "b94c9d810d06d76c",
+        "68198a0d8cd71eeb",
+        "a87cfc9b3e8f9e94"
+      ],
+      "retrieval_seconds": 0.0015863999997236533,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q24",
+      "question": "status_code 除数字外还能接收哪种枚举？",
+      "reference_answer": "IntEnum，例如 http.HTTPStatus。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "7c82aa0edb94d7ec",
+        "65e0ab3d0b21d3ac",
+        "bfa19b797bab8911",
+        "be8c65b3dda3e07f",
+        "69e864af5f765269"
+      ],
+      "retrieval_seconds": 0.0011534999994182726,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q27",
+      "question": "204 响应允许包含响应体吗？",
+      "reference_answer": "不允许，204 表示无内容。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "114cb92529e14f56",
+        "7c82aa0edb94d7ec",
+        "8edea30d206c10a3",
+        "96f1dee682d78428"
+      ],
+      "retrieval_seconds": 0.000863299999764422,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q30",
+      "question": "请求不存在的示例 item bar，会收到什么状态码？",
+      "reference_answer": "404。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "a8f1ad3f8c682769",
+        "715b10a471c4d9a8",
+        "3772069da1647a01",
+        "25b6a51da48360f8",
+        "b01b2de64680585c"
+      ],
+      "retrieval_seconds": 0.0014620999991166173,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q33",
+      "question": "OAuth2PasswordBearer 的 tokenUrl 参数表示什么？",
+      "reference_answer": "客户端发送用户名和密码以获取令牌的 URL。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "d95476d35952b04a",
+        "7c82aa0edb94d7ec",
+        "ef7a9553abf61dd4",
+        "ef6637ca54094ac3",
+        "25b6a51da48360f8"
+      ],
+      "retrieval_seconds": 0.0008682999996381113,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q36",
+      "question": "OAuth2PasswordBearer 会在哪个请求头寻找哪种令牌？",
+      "reference_answer": "Authorization 请求头中的 Bearer 令牌。",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "3772069da1647a01",
+        "ff26ae8b1ea7886d",
+        "d95476d35952b04a",
+        "ef7a9553abf61dd4",
+        "96f1dee682d78428"
+      ],
+      "retrieval_seconds": 0.001158199999736098,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q45",
+      "question": "如何运行第一个应用并查看安全接口文档？",
+      "reference_answer": "运行 fastapi dev，通过 /docs 查看交互文档，安全方案会集成在文档中。",
+      "split": "test",
+      "kind": "multi",
+      "ranked_ids": [
+        "e150f2d0ad601b4a",
+        "ef6637ca54094ac3",
+        "4b6fa8c35fc07932",
+        "7df4a22400c98d59",
+        "ef7a9553abf61dd4"
+      ],
+      "retrieval_seconds": 0.0014724000002388493,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q48",
+      "question": "先查未找到和默认成功响应的状态码，再用计算工具求前者减后者。",
+      "reference_answer": "204",
+      "split": "test",
+      "kind": "calculation",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "8e444b62d5ff4269",
+        "a8f1ad3f8c682769",
+        "7c82aa0edb94d7ec",
+        "4e6098f7907c951d"
+      ],
+      "retrieval_seconds": 0.0021616999993057107,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q50",
+      "question": "这份资料中月球基地的网络延迟是多少？",
+      "reference_answer": "资料不足，应拒绝猜测。",
+      "split": "test",
+      "kind": "unanswerable",
+      "ranked_ids": [
+        "7df4a22400c98d59",
+        "d78c37f43ff1bbba",
+        "25b6a51da48360f8",
+        "ff26ae8b1ea7886d",
+        "b94c9d810d06d76c"
+      ],
+      "retrieval_seconds": 0.0014530999997077743,
+      "hit_at_5": null,
+      "recall_at_5": null,
+      "mrr": null,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    }
+  ],
+  "provenance": {
+    "corpus_commit": "05e6df7e906c3decba377c37548019973f40bf15",
+    "questions_sha256": "42534078ab2a02d8134c3114e66a284945f46613d257dd25579c6cf8b7e99f1e",
+    "embedding_model": "BAAI/bge-m3",
+    "reranker_model": "BAAI/bge-reranker-v2-m3",
+    "python": "3.10.11"
+  },
+  "first_query_seconds": 0.002036500000031083
+}

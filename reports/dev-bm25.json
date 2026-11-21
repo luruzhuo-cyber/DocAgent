@@ -1,0 +1,769 @@
+{
+  "config": {
+    "strategy": "structural",
+    "mode": "bm25",
+    "rerank": false,
+    "live": false,
+    "split": "dev",
+    "output": "reports/dev-bm25.json"
+  },
+  "label_warning": "Agent-authored fact-specific labels were checked against pinned source prose, not human reviewed. Test is provisional, not a production benchmark.",
+  "rubric": {
+    "manual_correctness": "Human: 0 incorrect, 1 partly correct, 2 fully correct. Calculation must match exact result. Unanswerable must abstain.",
+    "manual_citation_support": "Human: 0 unsupported, 1 partial, 2 every material claim supported by returned current-turn evidence.",
+    "multi": "Recall denominator counts expected document/section pairs, not all possible equivalent chunks."
+  },
+  "metrics": {
+    "hit_at_5": 0.9411764705882353,
+    "recall_at_5": 0.9117647058823529,
+    "mrr": 0.857843137254902,
+    "retrieval_seconds": 0.001445902857085457,
+    "p95_retrieval_seconds": 0.002003099999456026
+  },
+  "retrieval_evaluable": 34,
+  "results": [
+    {
+      "id": "Q01",
+      "question": "URL 里查询字符串从哪个符号开始，各键值对如何分隔？",
+      "reference_answer": "从 ? 后开始，以 & 分隔。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "5009ed69072a262f",
+        "346f4ec6be6a247a",
+        "9c5b68a82f4cb727",
+        "ca45e2d063dd31d0",
+        "10de54bd77db560a"
+      ],
+      "retrieval_seconds": 0.001987399999961781,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q02",
+      "question": "查询参数声明 int 后，URL 里的字符串会怎样处理？",
+      "reference_answer": "转换为声明的类型并进行校验。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "5009ed69072a262f",
+        "ca45e2d063dd31d0",
+        "b8828b441c7590a2",
+        "8c4b5379a0d890ae",
+        "eb847693047e8f35"
+      ],
+      "retrieval_seconds": 0.0016121000007842667,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q04",
+      "question": "示例只传 skip=20 而不传 limit，最后使用什么 limit？",
+      "reference_answer": "使用默认 limit=10。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "5009ed69072a262f",
+        "0d1267ce6343772b",
+        "be19b5877cacb7a1",
+        "10de54bd77db560a"
+      ],
+      "retrieval_seconds": 0.0013011000000915374,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q05",
+      "question": "怎样设置默认值才能让查询参数可选？",
+      "reference_answer": "将默认值设为 None。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ca45e2d063dd31d0",
+        "b8828b441c7590a2",
+        "68198a0d8cd71eeb",
+        "e18980350303b7d4",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.001316499999120424,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q07",
+      "question": "不想给查询参数默认值而希望客户端必须提供，应怎样声明？",
+      "reference_answer": "不声明默认值即可使它成为必选参数。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ca45e2d063dd31d0",
+        "b8828b441c7590a2",
+        "8c4b5379a0d890ae",
+        "96f1dee682d78428",
+        "e18980350303b7d4"
+      ],
+      "retrieval_seconds": 0.002003099999456026,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q08",
+      "question": "请求体和响应体分别由哪一方发给哪一方？",
+      "reference_answer": "请求体由客户端发给 API，响应体由 API 发给客户端。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "96f1dee682d78428",
+        "114cb92529e14f56",
+        "7c82aa0edb94d7ec",
+        "fc1a5504cb0076c4",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0013859000000593369,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q10",
+      "question": "为何不推荐给 GET 请求附加请求体？",
+      "reference_answer": "规范未定义其行为，Swagger UI 不显示此文档，代理也可能不支持。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "96f1dee682d78428",
+        "c4a4c4765229b915",
+        "114cb92529e14f56",
+        "15dc1cb0f6c4dc17",
+        "77fcda04adb25e6e"
+      ],
+      "retrieval_seconds": 0.001115399999434885,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q11",
+      "question": "声明请求模型前应从什么包导入哪个基类？",
+      "reference_answer": "从 pydantic 导入 BaseModel。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "fc1a5504cb0076c4",
+        "8c4b5379a0d890ae",
+        "3772069da1647a01",
+        "ff26ae8b1ea7886d",
+        "76f677d47d1dbf7b"
+      ],
+      "retrieval_seconds": 0.0014592999996239087,
+      "hit_at_5": 0,
+      "recall_at_5": 0.0,
+      "mrr": 0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q13",
+      "question": "把函数参数声明为 Item 模型后，无效请求体会发生什么？",
+      "reference_answer": "进行校验并返回指出错误位置和内容的错误信息。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "afb870260037595f",
+        "fc1a5504cb0076c4",
+        "114cb92529e14f56",
+        "96f1dee682d78428",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0017484999998487183,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q14",
+      "question": "请求模型的 JSON Schema 会进入哪一种 API 规范并展示在哪里？",
+      "reference_answer": "成为 OpenAPI Schema 的一部分，并显示于交互式 API 文档。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ea3e43c026a72e26",
+        "f4687cfb5e031f47",
+        "96f1dee682d78428",
+        "afb870260037595f",
+        "1a8505f8b9e0a8a9"
+      ],
+      "retrieval_seconds": 0.0018139000003429828,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q16",
+      "question": "路径参数 item_id 要按整数解析，应该标注什么类型？",
+      "reference_answer": "使用 Python int 类型注解。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "28755fa1f9270704",
+        "e936fb9705ae97fa",
+        "f1cbcda29bf3b3ff",
+        "5009ed69072a262f",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0015985000000000582,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q17",
+      "question": "访问 /items/3 后，整数声明的 item_id 是数字还是字符串？",
+      "reference_answer": "为整数 3，而不是字符串。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "e936fb9705ae97fa",
+        "eb847693047e8f35",
+        "5009ed69072a262f",
+        "e364c092c108be4e",
+        "68198a0d8cd71eeb"
+      ],
+      "retrieval_seconds": 0.0015101999997568782,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q19",
+      "question": "/users/me 与 /users/{user_id} 应先声明哪一个，为什么？",
+      "reference_answer": "先声明 /users/me，路径操作按顺序匹配。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "27ae8671340597c7",
+        "ef6637ca54094ac3",
+        "0bbba9a6a5e7680d",
+        "be8c65b3dda3e07f",
+        "4b6fa8c35fc07932"
+      ],
+      "retrieval_seconds": 0.0013006999997742241,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q20",
+      "question": "FastAPI 的数据校验底层使用哪个库？",
+      "reference_answer": "Pydantic。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "69322d201fe72b63",
+        "0f62468fcd82222e",
+        "8e3cfa157c149d73",
+        "f1cbcda29bf3b3ff",
+        "afb870260037595f"
+      ],
+      "retrieval_seconds": 0.0011643999996522325,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q22",
+      "question": "路径参数只能取有限预设值时可用哪种 Python 类型？",
+      "reference_answer": "使用 Enum 枚举。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "65e0ab3d0b21d3ac",
+        "be8c65b3dda3e07f",
+        "10de54bd77db560a",
+        "5009ed69072a262f",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0017136999995273072,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q23",
+      "question": "status_code 应写在路由装饰器还是业务函数的参数中？",
+      "reference_answer": "写在 get、post 等装饰器方法中。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "7c82aa0edb94d7ec",
+        "3fcdde2245fc443c",
+        "c4a4c4765229b915",
+        "76f677d47d1dbf7b",
+        "0166a2bad6e1551c"
+      ],
+      "retrieval_seconds": 0.001525400000900845,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q25",
+      "question": "成功响应的默认状态码是多少？",
+      "reference_answer": "200。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "8e444b62d5ff4269",
+        "7c82aa0edb94d7ec",
+        "b01b2de64680585c",
+        "a8f1ad3f8c682769"
+      ],
+      "retrieval_seconds": 0.0010787999999593012,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q26",
+      "question": "创建新数据库记录后通常使用哪个状态码？",
+      "reference_answer": "201，表示已创建。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "7c82aa0edb94d7ec",
+        "df09be8f31f7381a",
+        "e2fda6524d4949ce",
+        "4e6098f7907c951d"
+      ],
+      "retrieval_seconds": 0.0014573999997082865,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q28",
+      "question": "HTTP 客户端错误和服务端错误分别属于哪个数值区间？",
+      "reference_answer": "客户端 400–499，服务器 500–599。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "b01b2de64680585c",
+        "5d69ef290b857a5f",
+        "a8f1ad3f8c682769",
+        "ff26ae8b1ea7886d"
+      ],
+      "retrieval_seconds": 0.0015570999994451995,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q29",
+      "question": "应 raise 还是 return HTTPException，抛出后会怎样？",
+      "reference_answer": "应 raise，立即终止执行并向客户端发送错误。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "715b10a471c4d9a8",
+        "e3c0eaa1d093ae33",
+        "96ae78e9a58bd7ca",
+        "4b6fa8c35fc07932",
+        "2c48443b8d554073"
+      ],
+      "retrieval_seconds": 0.0010847000003195717,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q31",
+      "question": "HTTPException 能否在错误响应中附带自定义响应头？",
+      "reference_answer": "可以添加自定义响应头。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "be3f03dd4b7ff68e",
+        "3772069da1647a01",
+        "5d69ef290b857a5f",
+        "96ae78e9a58bd7ca",
+        "2c48443b8d554073"
+      ],
+      "retrieval_seconds": 0.0012790999999197084,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q32",
+      "question": "请求中的数据无效时 FastAPI 抛出什么异常？",
+      "reference_answer": "RequestValidationError。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "7fbe1d27ea70b7c8",
+        "264d06f5910ac300",
+        "114cb92529e14f56",
+        "715b10a471c4d9a8",
+        "afb870260037595f"
+      ],
+      "retrieval_seconds": 0.0012459999998100102,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q34",
+      "question": "设置 tokenUrl 会自动创建获取令牌的端点吗？",
+      "reference_answer": "不会，仅声明 URL 并用于 OpenAPI。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ff26ae8b1ea7886d",
+        "ef7a9553abf61dd4",
+        "d95476d35952b04a",
+        "3772069da1647a01",
+        "7df4a22400c98d59"
+      ],
+      "retrieval_seconds": 0.0013385000002017478,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q35",
+      "question": "API 根路径为 /api/v1/ 时，相对 tokenUrl=token 指向哪里？",
+      "reference_answer": "/api/v1/token。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "d95476d35952b04a",
+        "ef7a9553abf61dd4",
+        "9c5b68a82f4cb727",
+        "be8c65b3dda3e07f",
+        "e2fda6524d4949ce"
+      ],
+      "retrieval_seconds": 0.0012415000001055887,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q37",
+      "question": "缺少 Authorization 请求头时会直接返回哪个状态码？",
+      "reference_answer": "401。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3772069da1647a01",
+        "25b6a51da48360f8",
+        "b01b2de64680585c",
+        "8e444b62d5ff4269",
+        "7c82aa0edb94d7ec"
+      ],
+      "retrieval_seconds": 0.0013171999999030959,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q38",
+      "question": "拿到 Bearer 字符串就代表令牌有效性已验证了吗？",
+      "reference_answer": "没有，此阶段尚未验证令牌是否有效。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3772069da1647a01",
+        "ff26ae8b1ea7886d",
+        "f1cbcda29bf3b3ff",
+        "5009ed69072a262f",
+        "a2b1c03c8bd8f010"
+      ],
+      "retrieval_seconds": 0.0014482000005955342,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q39",
+      "question": "交互式 API 文档应该访问哪个 URL 路径？",
+      "reference_answer": "/docs。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "e364c092c108be4e",
+        "f4687cfb5e031f47",
+        "c5b7b197b02879e7",
+        "ef7a9553abf61dd4",
+        "869e0db329adf472"
+      ],
+      "retrieval_seconds": 0.0012008999992758618,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q40",
+      "question": "同步路径函数能依赖 async def 函数吗？",
+      "reference_answer": "可以，同步与异步依赖可以混用。",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3d21bde41e5370d8",
+        "0166a2bad6e1551c",
+        "be8c65b3dda3e07f",
+        "76f677d47d1dbf7b",
+        "e49c550b89effdb3"
+      ],
+      "retrieval_seconds": 0.0010514999994484242,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q41",
+      "question": "查询参数与路径参数分别怎样声明？",
+      "reference_answer": "路径占位符对应路径参数，未在路径中的普通函数参数会解释为查询参数。",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "b93d9e46ff474404",
+        "8c4b5379a0d890ae",
+        "b8828b441c7590a2",
+        "5009ed69072a262f",
+        "e4c401fc1462514a"
+      ],
+      "retrieval_seconds": 0.0010665999998309417,
+      "hit_at_5": 1,
+      "recall_at_5": 0.5,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q42",
+      "question": "请求体如何与路径参数一起使用，查询参数是否可同时使用？",
+      "reference_answer": "Pydantic 模型参数解释为请求体，路径中匹配的为路径参数，其他单值参数为查询参数，可以同时使用。",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "8c4b5379a0d890ae",
+        "96f1dee682d78428",
+        "fc1a5504cb0076c4",
+        "10de54bd77db560a",
+        "ef7a9553abf61dd4"
+      ],
+      "retrieval_seconds": 0.0016817000005175942,
+      "hit_at_5": 1,
+      "recall_at_5": 0.5,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q43",
+      "question": "如何声明正常响应状态码并在错误时返回 HTTPException？",
+      "reference_answer": "在装饰器设置 status_code 声明正常状态码，在错误场景 raise HTTPException。",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "8e444b62d5ff4269",
+        "a8f1ad3f8c682769",
+        "7c82aa0edb94d7ec",
+        "b01b2de64680585c"
+      ],
+      "retrieval_seconds": 0.0015527000005022273,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q44",
+      "question": "依赖注入如何配合 OAuth2PasswordBearer 使用？",
+      "reference_answer": "OAuth2PasswordBearer 实例是可调用对象，可以作为 Depends 的依赖，返回令牌字符串。",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "d95476d35952b04a",
+        "ef6637ca54094ac3",
+        "1e52d40ee41f156d",
+        "76f677d47d1dbf7b",
+        "0bbba9a6a5e7680d"
+      ],
+      "retrieval_seconds": 0.0009771000004548114,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q46",
+      "question": "检索分页示例只传 skip=20 时的 skip 和默认 limit，用计算工具求二者之和。",
+      "reference_answer": "30",
+      "split": "dev",
+      "kind": "calculation",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "0d1267ce6343772b",
+        "5009ed69072a262f",
+        "25b6a51da48360f8",
+        "7fbe1d27ea70b7c8"
+      ],
+      "retrieval_seconds": 0.0020634000002246466,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q47",
+      "question": "先查第一个应用示例监听的本地端口，再用计算工具加 1。",
+      "reference_answer": "8001",
+      "split": "dev",
+      "kind": "calculation",
+      "ranked_ids": [
+        "4b6fa8c35fc07932",
+        "ef6637ca54094ac3",
+        "e150f2d0ad601b4a",
+        "25b6a51da48360f8",
+        "ca45e2d063dd31d0"
+      ],
+      "retrieval_seconds": 0.0019972000000052503,
+      "hit_at_5": 0,
+      "recall_at_5": 0.0,
+      "mrr": 0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q49",
+      "question": "请给出本公司2026年生产数据库密码。",
+      "reference_answer": "资料不足，应拒绝猜测。",
+      "split": "dev",
+      "kind": "unanswerable",
+      "ranked_ids": [
+        "afb870260037595f",
+        "df09be8f31f7381a",
+        "715b10a471c4d9a8",
+        "e49c550b89effdb3",
+        "0f62468fcd82222e"
+      ],
+      "retrieval_seconds": 0.0014108999994277838,
+      "hit_at_5": null,
+      "recall_at_5": null,
+      "mrr": null,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    }
+  ],
+  "provenance": {
+    "corpus_commit": "05e6df7e906c3decba377c37548019973f40bf15",
+    "questions_sha256": "42534078ab2a02d8134c3114e66a284945f46613d257dd25579c6cf8b7e99f1e",
+    "embedding_model": "BAAI/bge-m3",
+    "reranker_model": "BAAI/bge-reranker-v2-m3",
+    "python": "3.10.11"
+  },
+  "first_query_seconds": 0.001987399999961781
+}

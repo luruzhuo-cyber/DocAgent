@@ -1,0 +1,975 @@
+{
+  "config": {
+    "strategy": "structural",
+    "mode": "hybrid",
+    "rerank": false,
+    "live": false,
+    "split": "all",
+    "output": "reports/bge-hybrid.json"
+  },
+  "label_warning": "Agent-authored fact-specific labels were checked against pinned source prose, not human reviewed. Test is provisional, not a production benchmark.",
+  "rubric": {
+    "manual_correctness": "Human: 0 incorrect, 1 partly correct, 2 fully correct. Calculation must match exact result. Unanswerable must abstain.",
+    "manual_citation_support": "Human: 0 unsupported, 1 partial, 2 every material claim supported by returned current-turn evidence.",
+    "multi": "Recall denominator counts expected document/section pairs, not all possible equivalent chunks."
+  },
+  "metrics": {
+    "hit_at_5": 0.9375,
+    "recall_at_5": 0.9166666666666666,
+    "mrr": 0.8211805555555555,
+    "retrieval_seconds": 1.4750410979999469
+  },
+  "retrieval_evaluable": 48,
+  "results": [
+    {
+      "id": "Q01",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "5009ed69072a262f",
+        "ca45e2d063dd31d0",
+        "68198a0d8cd71eeb",
+        "9c5b68a82f4cb727",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 69.59466129999964,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q02",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "5009ed69072a262f",
+        "ca45e2d063dd31d0",
+        "8c4b5379a0d890ae",
+        "b8828b441c7590a2",
+        "eb847693047e8f35"
+      ],
+      "retrieval_seconds": 0.07975429999987682,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q03",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "0d1267ce6343772b",
+        "5009ed69072a262f",
+        "be8c65b3dda3e07f",
+        "10de54bd77db560a"
+      ],
+      "retrieval_seconds": 0.09001209999951243,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q04",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "be19b5877cacb7a1",
+        "0d1267ce6343772b",
+        "10de54bd77db560a",
+        "be8c65b3dda3e07f"
+      ],
+      "retrieval_seconds": 0.08129279999957362,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q05",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ca45e2d063dd31d0",
+        "68198a0d8cd71eeb",
+        "b8828b441c7590a2",
+        "e18980350303b7d4",
+        "5009ed69072a262f"
+      ],
+      "retrieval_seconds": 0.07349830000021029,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q06",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "9183ce454a4306b4",
+        "e3c0eaa1d093ae33",
+        "73cb23c7eab55f52",
+        "afb870260037595f",
+        "e936fb9705ae97fa"
+      ],
+      "retrieval_seconds": 0.09316179999950691,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q07",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ca45e2d063dd31d0",
+        "b8828b441c7590a2",
+        "68198a0d8cd71eeb",
+        "e18980350303b7d4",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.08580340000025899,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q08",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "96f1dee682d78428",
+        "114cb92529e14f56",
+        "fc1a5504cb0076c4",
+        "7c82aa0edb94d7ec",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.09291830000074697,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q09",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "e2fda6524d4949ce",
+        "96f1dee682d78428",
+        "25b6a51da48360f8",
+        "715b10a471c4d9a8",
+        "e364c092c108be4e"
+      ],
+      "retrieval_seconds": 0.07556890000068961,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q10",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "96f1dee682d78428",
+        "114cb92529e14f56",
+        "fc1a5504cb0076c4",
+        "8c4b5379a0d890ae",
+        "715b10a471c4d9a8"
+      ],
+      "retrieval_seconds": 0.07809350000025006,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q11",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "fc1a5504cb0076c4",
+        "8c4b5379a0d890ae",
+        "e18980350303b7d4",
+        "afb870260037595f",
+        "96f1dee682d78428"
+      ],
+      "retrieval_seconds": 0.0755816999999297,
+      "hit_at_5": 0,
+      "recall_at_5": 0.0,
+      "mrr": 0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q12",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "e18980350303b7d4",
+        "5299da6d5d99c5dc",
+        "afb870260037595f",
+        "fc1a5504cb0076c4",
+        "77fcda04adb25e6e"
+      ],
+      "retrieval_seconds": 0.06804199999987759,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q13",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "114cb92529e14f56",
+        "afb870260037595f",
+        "e4c401fc1462514a",
+        "fc1a5504cb0076c4",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.07842319999963365,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q14",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ea3e43c026a72e26",
+        "f4687cfb5e031f47",
+        "fedb86e8d37e84ea",
+        "afb870260037595f",
+        "96f1dee682d78428"
+      ],
+      "retrieval_seconds": 0.07937849999962054,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q15",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "0a2c838450f0004e",
+        "f1cbcda29bf3b3ff",
+        "96f1dee682d78428",
+        "afb870260037595f",
+        "8e3cfa157c149d73"
+      ],
+      "retrieval_seconds": 0.08459360000051674,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q16",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "28755fa1f9270704",
+        "64c9be8d3112ab7e",
+        "5009ed69072a262f",
+        "eb847693047e8f35",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.08028339999964373,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q17",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "eb847693047e8f35",
+        "e936fb9705ae97fa",
+        "5009ed69072a262f",
+        "69322d201fe72b63",
+        "68198a0d8cd71eeb"
+      ],
+      "retrieval_seconds": 0.0906035999996675,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q18",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "69322d201fe72b63",
+        "eb847693047e8f35",
+        "a8f1ad3f8c682769",
+        "264d06f5910ac300",
+        "9c5b68a82f4cb727"
+      ],
+      "retrieval_seconds": 0.1129479999999603,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q19",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "27ae8671340597c7",
+        "be8c65b3dda3e07f",
+        "ef7a9553abf61dd4",
+        "4b6fa8c35fc07932",
+        "e150f2d0ad601b4a"
+      ],
+      "retrieval_seconds": 0.10418899999967834,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q20",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "0f62468fcd82222e",
+        "f1cbcda29bf3b3ff",
+        "afb870260037595f",
+        "7625d64ef401aaaf",
+        "df09be8f31f7381a"
+      ],
+      "retrieval_seconds": 0.09003149999989546,
+      "hit_at_5": 0,
+      "recall_at_5": 0.0,
+      "mrr": 0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q21",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "e364c092c108be4e",
+        "c5b7b197b02879e7",
+        "b94c9d810d06d76c",
+        "63e9451ce9547c18",
+        "869e0db329adf472"
+      ],
+      "retrieval_seconds": 0.12199799999962124,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.3333333333333333,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q22",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "65e0ab3d0b21d3ac",
+        "5009ed69072a262f",
+        "0d1267ce6343772b",
+        "28755fa1f9270704",
+        "fc1a5504cb0076c4"
+      ],
+      "retrieval_seconds": 0.09800360000008368,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q23",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "7c82aa0edb94d7ec",
+        "c4a4c4765229b915",
+        "0166a2bad6e1551c",
+        "25b6a51da48360f8",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0899171999999453,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q24",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "7c82aa0edb94d7ec",
+        "bfa19b797bab8911",
+        "65e0ab3d0b21d3ac",
+        "10ad0575e9d8fcd2",
+        "25b6a51da48360f8"
+      ],
+      "retrieval_seconds": 0.10456690000046365,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q25",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "7c82aa0edb94d7ec",
+        "8e444b62d5ff4269",
+        "a8f1ad3f8c682769",
+        "b01b2de64680585c"
+      ],
+      "retrieval_seconds": 0.09202060000006895,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q26",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "7c82aa0edb94d7ec",
+        "4e6098f7907c951d",
+        "8e444b62d5ff4269",
+        "b01b2de64680585c"
+      ],
+      "retrieval_seconds": 0.10645540000041365,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q27",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "7c82aa0edb94d7ec",
+        "114cb92529e14f56",
+        "96f1dee682d78428",
+        "2c48443b8d554073"
+      ],
+      "retrieval_seconds": 0.07237689999965369,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q28",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "b01b2de64680585c",
+        "5d69ef290b857a5f",
+        "a8f1ad3f8c682769",
+        "715b10a471c4d9a8"
+      ],
+      "retrieval_seconds": 0.07964030000039202,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q29",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "715b10a471c4d9a8",
+        "5d69ef290b857a5f",
+        "2c48443b8d554073",
+        "96ae78e9a58bd7ca",
+        "25b6a51da48360f8"
+      ],
+      "retrieval_seconds": 0.08502990000033606,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q30",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "a8f1ad3f8c682769",
+        "3772069da1647a01",
+        "7c82aa0edb94d7ec",
+        "b01b2de64680585c",
+        "114cb92529e14f56"
+      ],
+      "retrieval_seconds": 0.09742600000026869,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q31",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "be3f03dd4b7ff68e",
+        "2c48443b8d554073",
+        "5d69ef290b857a5f",
+        "7fbe1d27ea70b7c8",
+        "96ae78e9a58bd7ca"
+      ],
+      "retrieval_seconds": 0.07505899999978283,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q32",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "264d06f5910ac300",
+        "7fbe1d27ea70b7c8",
+        "fa6caf81ceb84930",
+        "a4f9a2fca1f7b38d",
+        "96ae78e9a58bd7ca"
+      ],
+      "retrieval_seconds": 0.07384799999999814,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q33",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "d95476d35952b04a",
+        "ef7a9553abf61dd4",
+        "3772069da1647a01",
+        "7c82aa0edb94d7ec",
+        "9cf401c67830fae9"
+      ],
+      "retrieval_seconds": 0.0932756000001973,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q34",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ef7a9553abf61dd4",
+        "ff26ae8b1ea7886d",
+        "d95476d35952b04a",
+        "3772069da1647a01",
+        "4b6fa8c35fc07932"
+      ],
+      "retrieval_seconds": 0.08363660000031814,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q35",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "ef7a9553abf61dd4",
+        "d95476d35952b04a",
+        "9c5b68a82f4cb727",
+        "96f1dee682d78428",
+        "8c4b5379a0d890ae"
+      ],
+      "retrieval_seconds": 0.0891711000003852,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q36",
+      "split": "test",
+      "kind": "single",
+      "ranked_ids": [
+        "ff26ae8b1ea7886d",
+        "3772069da1647a01",
+        "d95476d35952b04a",
+        "ef7a9553abf61dd4",
+        "a8f1ad3f8c682769"
+      ],
+      "retrieval_seconds": 0.07979939999950147,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q37",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3772069da1647a01",
+        "b01b2de64680585c",
+        "7c82aa0edb94d7ec",
+        "25b6a51da48360f8",
+        "a8f1ad3f8c682769"
+      ],
+      "retrieval_seconds": 0.0746142999996664,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q38",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3772069da1647a01",
+        "ff26ae8b1ea7886d",
+        "d95476d35952b04a",
+        "5009ed69072a262f",
+        "40630b491421b98a"
+      ],
+      "retrieval_seconds": 0.08068989999992482,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q39",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "e364c092c108be4e",
+        "c5b7b197b02879e7",
+        "f4687cfb5e031f47",
+        "869e0db329adf472",
+        "4b6fa8c35fc07932"
+      ],
+      "retrieval_seconds": 0.07281479999983276,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.5,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q40",
+      "split": "dev",
+      "kind": "single",
+      "ranked_ids": [
+        "3d21bde41e5370d8",
+        "0166a2bad6e1551c",
+        "76f677d47d1dbf7b",
+        "be8c65b3dda3e07f",
+        "10de54bd77db560a"
+      ],
+      "retrieval_seconds": 0.07472489999963727,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q41",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "b93d9e46ff474404",
+        "8c4b5379a0d890ae",
+        "5009ed69072a262f",
+        "b8828b441c7590a2",
+        "e4c401fc1462514a"
+      ],
+      "retrieval_seconds": 0.07673549999981333,
+      "hit_at_5": 1,
+      "recall_at_5": 0.5,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q42",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "8c4b5379a0d890ae",
+        "fc1a5504cb0076c4",
+        "96f1dee682d78428",
+        "5009ed69072a262f",
+        "b93d9e46ff474404"
+      ],
+      "retrieval_seconds": 0.08487379999951372,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q43",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "25b6a51da48360f8",
+        "7c82aa0edb94d7ec",
+        "b01b2de64680585c",
+        "a8f1ad3f8c682769",
+        "8e444b62d5ff4269"
+      ],
+      "retrieval_seconds": 0.07619679999970685,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q44",
+      "split": "dev",
+      "kind": "multi",
+      "ranked_ids": [
+        "d95476d35952b04a",
+        "9cf401c67830fae9",
+        "76f677d47d1dbf7b",
+        "e49c550b89effdb3",
+        "0bbba9a6a5e7680d"
+      ],
+      "retrieval_seconds": 0.07560059999923396,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q45",
+      "split": "test",
+      "kind": "multi",
+      "ranked_ids": [
+        "e150f2d0ad601b4a",
+        "4b6fa8c35fc07932",
+        "9cf401c67830fae9",
+        "869e0db329adf472",
+        "3772069da1647a01"
+      ],
+      "retrieval_seconds": 0.07304300000032526,
+      "hit_at_5": 1,
+      "recall_at_5": 0.5,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q46",
+      "split": "dev",
+      "kind": "calculation",
+      "ranked_ids": [
+        "68198a0d8cd71eeb",
+        "0d1267ce6343772b",
+        "5009ed69072a262f",
+        "7fbe1d27ea70b7c8",
+        "a8f1ad3f8c682769"
+      ],
+      "retrieval_seconds": 0.09684560000005149,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q47",
+      "split": "dev",
+      "kind": "calculation",
+      "ranked_ids": [
+        "4b6fa8c35fc07932",
+        "ef6637ca54094ac3",
+        "e150f2d0ad601b4a",
+        "d069b4b9a2a9facd",
+        "a87cfc9b3e8f9e94"
+      ],
+      "retrieval_seconds": 0.08004339999934018,
+      "hit_at_5": 0,
+      "recall_at_5": 0.0,
+      "mrr": 0,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q48",
+      "split": "test",
+      "kind": "calculation",
+      "ranked_ids": [
+        "8e444b62d5ff4269",
+        "7c82aa0edb94d7ec",
+        "a8f1ad3f8c682769",
+        "25b6a51da48360f8",
+        "b01b2de64680585c"
+      ],
+      "retrieval_seconds": 0.08462080000026617,
+      "hit_at_5": 1,
+      "recall_at_5": 1.0,
+      "mrr": 0.25,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q49",
+      "split": "dev",
+      "kind": "unanswerable",
+      "ranked_ids": [
+        "9cf401c67830fae9",
+        "69322d201fe72b63",
+        "b8828b441c7590a2",
+        "40630b491421b98a",
+        "4e6098f7907c951d"
+      ],
+      "retrieval_seconds": 0.07115559999965626,
+      "hit_at_5": null,
+      "recall_at_5": null,
+      "mrr": null,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    },
+    {
+      "id": "Q50",
+      "split": "test",
+      "kind": "unanswerable",
+      "ranked_ids": [
+        "7e8f6d07afd55a7a",
+        "25b6a51da48360f8",
+        "96ae78e9a58bd7ca",
+        "b01b2de64680585c",
+        "68198a0d8cd71eeb"
+      ],
+      "retrieval_seconds": 0.07903220000025613,
+      "hit_at_5": null,
+      "recall_at_5": null,
+      "mrr": null,
+      "manual_correctness": null,
+      "manual_citation_support": null,
+      "manual_reviewed": false
+    }
+  ]
+}
