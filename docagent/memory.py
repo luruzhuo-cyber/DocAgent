@@ -1,6 +1,7 @@
 """SQLite 保存原始记录与摘要；摘要仅供理解追问，不作为检索证据。"""
 
 import sqlite3
+import json
 from contextlib import contextmanager
 import threading
 from pathlib import Path
@@ -14,7 +15,14 @@ class Memory:
         self._gate = threading.Lock()
         with self.connect() as c:
             c.executescript(
-                "CREATE TABLE IF NOT EXISTS messages(id INTEGER PRIMARY KEY,session TEXT,role TEXT,content TEXT); CREATE TABLE IF NOT EXISTS summaries(session TEXT PRIMARY KEY, upto INTEGER,content TEXT);"
+                "CREATE TABLE IF NOT EXISTS turn_traces(id INTEGER PRIMARY KEY, session TEXT, payload TEXT); CREATE TABLE IF NOT EXISTS messages(id INTEGER PRIMARY KEY,session TEXT,role TEXT,content TEXT); CREATE TABLE IF NOT EXISTS summaries(session TEXT PRIMARY KEY, upto INTEGER,content TEXT);"
+            )
+
+    def save_trace(self, session, trace):
+        with self.connect() as db:
+            db.execute(
+                "INSERT INTO turn_traces(session,payload) VALUES (?,?)",
+                (session, json.dumps(trace, ensure_ascii=False)),
             )
 
     @contextmanager

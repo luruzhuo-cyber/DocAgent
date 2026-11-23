@@ -100,7 +100,12 @@ class Retriever:
             if isinstance(settings, list)
             else [
                 c
-                for p in sorted(Path(settings.corpus_dir).glob("*.md"))
+                for p in sorted(
+                    [
+                        *Path(settings.corpus_dir).glob("*.md"),
+                        *(Path(settings.corpus_dir) / "uploads").glob("*.md"),
+                    ]
+                )
                 for c in chunk_text(p.read_text(encoding="utf-8"), p.name, strategy)
             ]
         )
@@ -122,6 +127,23 @@ class Retriever:
         self.encoder = None
         self.index = None
         self.reranker = None
+
+    def list_documents(self):
+        documents = {}
+        for chunk in self.chunks:
+            name = chunk["document"]
+            uploaded = bool(re.fullmatch(r"[a-f0-9]{32}_.+\.md", name))
+            entry = documents.setdefault(
+                name,
+                {
+                    "id": name,
+                    "name": name[33:-3] if uploaded else name,
+                    "uploaded": uploaded,
+                    "chunks": 0,
+                },
+            )
+            entry["chunks"] += 1
+        return list(documents.values())
 
     def _bm25(self, query):
         scores = []

@@ -1,8 +1,210 @@
-<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DocAgent 文档工作台</title><style>
-:root{font-family:system-ui,"Microsoft Yahei",sans-serif;color:#19332c;background:#f3f1e9}*{box-sizing:border-box}body{margin:0}header{padding:25px 5vw;border-bottom:1px solid #c7cec2;display:flex;justify-content:space-between}header b{letter-spacing:2px}main{max-width:1250px;margin:auto;padding:45px 4vw}h1{font-size:44px;letter-spacing:-2px;margin:10px 0}p{color:#586d60;line-height:1.7}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}.card{background:#fffdf6;border:1px solid #cbd0c1;padding:24px;border-radius:12px}textarea{width:100%;height:100px;border:1px solid #b9c3b4;border-radius:7px;padding:14px;font:inherit;background:transparent}button{background:#234c3a;color:white;border:0;padding:12px 20px;border-radius:6px;cursor:pointer;margin:12px 8px 0 0}button:disabled{opacity:.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-family:inherit}small{color:#5e7568}#trace{font-size:13px;max-height:260px;overflow:auto}.source{border-top:1px solid #d9ddcf;padding-top:12px;margin-top:12px}details{font-size:13px}a{color:inherit}@media(max-width:800px){.grid{grid-template-columns:1fr}h1{font-size:32px}}
-</style><header><b>DOCAGENT / 文档工作台</b><small id="health">正在检查服务</small></header><main><small>LOCAL DOCUMENT INTELLIGENCE</small><h1>带着证据，读懂文档。</h1><p>检索、读取章节与安全计算。每个回答都关联本轮工具返回的来源。</p><div class="grid"><section class="card"><label for="q">你的问题</label><textarea id="q" placeholder="例如：FastAPI 默认监听哪个端口？"></textarea><button id="send">查询文档</button><button id="reset">新会话</button><small id="state"></small><h3>回答</h3><pre id="answer">输入问题后，查看工具执行过程与证据。</pre><h3>工具轨迹</h3><pre id="trace"></pre></section><aside class="card"><h3>本轮证据</h3><p>引用编号有效不等于事实已经人工核验。请展开片段核对原文。</p><div id="sources"></div></aside></div><p><small>本机单用户演示 · 摘要用于理解上下文 · 工具事件实时推送，回答经引用校验后分段返回</small></p></main><script>
-const $=id=>document.getElementById(id);let session=crypto.randomUUID();$('reset').onclick=()=>{session=crypto.randomUUID();$('answer').textContent='已开始新会话';$('sources').replaceChildren();$('trace').textContent=''};
-fetch('/health').then(r=>r.json()).then(j=>$('health').textContent=`${j.chunks} 个片段 / ${j.retrieval_mode} / ${j.llm_configured?'模型已配置':'请填写 .env 密钥'}`).catch(()=>$('health').textContent='服务不可用');
-function handle(type,data){if(type==='status')$('state').textContent=data.message;if(type==='tool')$('trace').textContent+=`${data.phase} ${data.name} ${JSON.stringify(data.arguments)} ${data.elapsed_ms??''}\n`;if(type==='token')$('answer').textContent+=data.text;if(type==='error')$('answer').textContent=data.message;if(type==='sources'){ $('sources').replaceChildren();for(const s of data.sources){let d=document.createElement('details');d.className='source';let label=document.createElement('summary');label.textContent=`[${s.id}] ${s.document} / ${s.section}`;let p=document.createElement('pre');p.textContent=s.text;d.append(label,p);$('sources').append(d)}}if(type==='done')$('state').textContent=`完成 / ${data.steps} 步 / ${data.elapsed_ms}ms`;}
-$('send').onclick=async()=>{if(!$('q').value.trim())return;$('send').disabled=true;$('answer').textContent='';$('trace').textContent='';$('sources').replaceChildren();try{const r=await fetch('/chat/stream',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:$('q').value,session_id:session})});if(!r.ok)throw Error('HTTP '+r.status);const reader=r.body.getReader(),decoder=new TextDecoder();let pending='';while(true){const {value,done}=await reader.read();pending+=decoder.decode(value||new Uint8Array(),{stream:!done});let parts=pending.split('\n\n');pending=parts.pop();for(const block of parts){let type='',data='';for(const line of block.split('\n')){if(line.startsWith('event: '))type=line.slice(7);if(line.startsWith('data: '))data+=line.slice(6)}if(data)handle(type,JSON.parse(data))}if(done)break}}catch(e){$('answer').textContent='请求失败，请检查服务与配置。'}finally{$('send').disabled=false}};
-</script></html>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DocAgent · 文档工作台</title>
+<style>
+:root{font-family:Inter,system-ui,"Microsoft YaHei",sans-serif;color:#172923;background:#f9fafb;--green:#047857;--accent:#059669;--muted:#536760;--line:#dce7e2;--white:#fff}
+*{box-sizing:border-box}body{margin:0} button,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:wait}button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #63cdb0;outline-offset:2px}
+.shell{display:grid;grid-template-columns:264px minmax(0,1fr);height:100dvh}.sidebar{display:flex;flex-direction:column;gap:22px;padding:22px 16px;background:#f1f6f4;border-right:1px solid var(--line);overflow:auto}.brand{display:flex;align-items:center;gap:11px;font-weight:800}.mark{display:grid;place-items:center;background:#075e47;color:white;width:36px;height:36px;border-radius:12px}.brand small{display:block;font-weight:500;color:var(--muted)}h2{font-size:14px;margin:0 0 10px}.primary,.quiet,.drop,.file,.session{border-radius:12px}.primary,.quiet{padding:9px 14px;border:1px solid var(--line);background:white;color:inherit}.primary{background:var(--accent);color:white;border-color:transparent;font-weight:700}.drop{width:100%;border:1px dashed #78a998;background:#fff;color:var(--green);padding:12px;font-weight:700}.drop small{display:block;color:var(--muted);font-weight:500;margin-top:4px}.drop.over{background:#d4f5e8}.list{display:grid;gap:7px;margin-top:10px}.file{background:white;border:1px solid var(--line);padding:9px;display:flex;gap:8px;align-items:center;min-width:0;box-shadow:0 2px 5px #0b372307}.file > div{flex:1;min-width:0}.file strong{font-size:12px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file small,.hint{font-size:12px;color:var(--muted)}.icon{border:0;background:transparent;color:var(--muted);padding:5px}.session{width:100%;text-align:left;background:transparent;border:1px solid transparent;padding:8px;color:inherit;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.session:hover,.session[aria-current=true]{background:#def0e9;border-color:#cbe6db}.main{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-width:0}.top{background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px clamp(12px,3vw,32px)}.top strong{font-size:14px}.top-actions{display:flex;align-items:center;gap:8px}.feed{overflow:auto;padding:28px clamp(14px,4vw,46px);scroll-behavior:auto}.thread{max-width:790px;margin:auto}.welcome{padding:clamp(28px,11vh,110px) 0 34px}.welcome h1{margin:0 0 12px;font-size:clamp(30px,5vw,54px);letter-spacing:-.07em;line-height:1.1}.welcome p{color:var(--muted);line-height:1.7}.examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.message{margin:0 0 22px;max-width:90%;overflow-wrap:anywhere}.message.user{margin-left:auto;width:fit-content}.speaker{font-size:12px;color:var(--muted);margin:0 4px 7px}.user .speaker{text-align:right}.bubble{padding:12px 16px;background:#fff;border:1px solid var(--line);border-radius:14px;line-height:1.75;white-space:pre-wrap}.user .bubble{background:#e1f5ec;border-color:#cae9db}.citation{font:inherit;font-size:.82em;background:#e8f1ff;color:#174d9c;border:0;border-radius:7px;padding:0 6px;margin:0 2px}.citation:hover{background:#d2e3ff}.timeline{border-left:2px solid #b9ddcf;padding-left:14px;margin:0 0 10px;color:var(--muted);font-size:13px}.timeline div,.timeline details{margin:7px 0}.timeline summary{cursor:pointer}.timeline pre,.preview{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.compose{padding:10px clamp(14px,4vw,46px) 18px}.compose form{max-width:790px;margin:auto;display:flex;gap:8px;align-items:end;padding:9px;background:white;border:1px solid var(--line);border-radius:16px;box-shadow:0 6px 22px #0b37230d}.compose textarea{border:0;padding:8px;width:100%;min-height:44px;max-height:130px;resize:vertical;background:white;color:inherit}.drawer{position:fixed;inset:0 0 0 auto;width:min(420px,100vw);z-index:4;background:white;border-left:1px solid var(--line);box-shadow:-8px 0 36px #0b372319;transform:translateX(105%);visibility:hidden;transition:transform .2s,visibility .2s;display:flex;flex-direction:column}.drawer.open{transform:none;visibility:visible}.drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px;border-bottom:1px solid var(--line)}.drawer h2{margin:0}.sources{padding:14px;overflow:auto}.source{padding:13px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;overflow-wrap:anywhere}.source.active{border-color:#367ce0;background:#f0f6ff}.source strong{color:#174d9c}.source p{white-space:pre-wrap;font-size:13px;line-height:1.65}.menu{display:none}.notice{color:var(--muted);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:740px){.shell{grid-template-columns:minmax(0,1fr)}.menu{display:inline-block}.sidebar{display:none;position:fixed;inset:0 auto 0 0;width:min(280px,90vw);z-index:3;box-shadow:8px 0 28px #0b372320}.sidebar.open{display:flex}.message{max-width:96%}.top .hint{display:none}}
+@media(prefers-reduced-motion:reduce){.drawer{transition:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar" id="sidebar" aria-label="文档与会话">
+<div class="brand"><span class="mark" aria-hidden="true">▤</span><div>DocAgent<small>文档工作台</small></div></div>
+<button class="primary" id="new">＋ 新会话</button>
+<section><h2>文档库</h2><input hidden type="file" id="files" multiple accept=".md,.txt,.pdf,.docx,.png,.jpg,.jpeg,.webp"><button class="drop" id="drop">拖拽文件到这里<small>或点击选择文件</small></button><p id="notice" class="notice" role="status"></p><details id="preview" hidden><summary>解析预览</summary><pre class="preview"></pre></details><div class="list" id="documents"></div></section>
+<section><h2>会话历史</h2><div class="list" id="sessions"></div></section>
+</aside>
+<main class="main"><header class="top"><div><button class="quiet menu" id="menu" aria-controls="sidebar" aria-expanded="false">文档与会话</button> <strong id="conversation-title">新会话</strong></div><div class="top-actions"><span id="health" class="hint"></span><button class="quiet" id="evidence" aria-controls="drawer" aria-expanded="false">本轮证据</button></div></header>
+<div class="feed" id="feed"><div class="thread" id="thread"><section class="welcome" id="welcome"><h1>带着证据，读懂文档。</h1><p>直接聊天、写作或翻译。涉及本地资料时，助手会查阅文档并给出出处。</p><div class="examples"><button class="quiet example">FastAPI 默认监听哪个端口？</button><button class="quiet example">当前文档库有哪些文件？</button></div></section></div></div>
+<div class="compose"><form id="form"><textarea id="query" rows="1" maxlength="6000" aria-label="输入问题" placeholder="问一个关于文档的问题…"></textarea><button class="primary" id="send">发送</button></form></div>
+</main></div>
+<aside id="drawer" class="drawer" aria-label="本轮证据" inert><header><h2>本轮证据 <span id="count" class="hint"></span></h2><button id="close" class="quiet">关闭</button></header><div id="sources" class="sources"></div></aside>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const node = (tag, text, cls) => { const el = document.createElement(tag); if(text !== undefined) el.textContent=text; if(cls) el.className=cls; return el; };
+const labels = {search_docs:"检索文档", read_section:"读取章节", calculate:"计算", list_documents:"列出文档"};
+let session = crypto.randomUUID(), pending = false, uploading = false, navVersion = 0;
+let lastSources = [], drawerReturn;
+function scroll(){ $("feed").scrollTop=$("feed").scrollHeight; }
+function menu(open){ $("sidebar").classList.toggle("open",open); $("menu").setAttribute("aria-expanded",open); }
+function drawer(open, trigger){
+ if(open){drawerReturn=trigger||document.activeElement;$("drawer").inert=false;}
+ $("drawer").classList.toggle("open",open);$("evidence").setAttribute("aria-expanded",open);
+ if(open)$("close").focus(); else {$("drawer").inert=true;drawerReturn?.focus();}
+}
+function showSources(sources=[], selected, trigger){
+ const items=$("sources");items.replaceChildren();$("count").textContent=sources.length?String(sources.length):"";
+ if(!sources.length)items.append(node("p","本轮还没有证据。提问后可从回答中的引用查看原文。","hint"));
+ let active;
+ sources.forEach((source,i)=>{
+  const card=node("article",undefined,"source"); const match=source.id===selected;
+  if(match){card.classList.add("active");active=card;}
+  card.append(node("strong","["+ (i+1) +"] "+(source.document||"来源")),node("div",source.section||"","hint"),node("p",source.text||""));
+  items.append(card);
+ });
+ if(selected){drawer(true,trigger);active?.scrollIntoView({block:"nearest"});}
+}
+function answerText(el,text,sources=[]){
+ el.replaceChildren();const ids=new Map(sources.map((s,i)=>[String(s.id),i]));let cursor=0;
+ for(const match of text.matchAll(/\[([\w.:-]+)\]/g)){
+  const index=ids.get(match[1]) ?? ( /^\d+$/.test(match[1]) ? Number(match[1])-1 : -1);
+  if(!sources[index])continue;
+  el.append(document.createTextNode(text.slice(cursor,match.index)));
+  const b=node("button","["+(index+1)+"]","citation");b.type="button";b.title=sources[index].document||"查看原文";
+  b.setAttribute("aria-label","查看证据 "+(index+1));b.onclick=()=>showSources(sources,sources[index].id,b);
+  el.append(b);cursor=match.index+match[0].length;
+ }
+ el.append(document.createTextNode(text.slice(cursor)));
+}
+function message(role,text=""){
+ $("welcome").hidden=true;
+ const row=node("article",undefined,"message "+role), bubble=node("div",text,"bubble");
+ row.append(node("div",role==="user"?"你":"DocAgent","speaker"),bubble);$("thread").append(row);
+ return {row,bubble};
+}
+function timeline(row,bubble){
+ const el=node("div",undefined,"timeline");el.setAttribute("role","log");row.insertBefore(el,bubble);return el;
+}
+function traceEntry(list,data){
+ const item=node("details"), label=node("summary",(data.name||"工具")+" · "+(labels[data.name]||"执行"));item.append(label,node("pre",JSON.stringify(data.arguments||{},null,2)));list.append(item);return {item,label};
+}
+function finishTrace(entry,data){
+ entry.label.textContent=(data.ok?"✓ ":"! ")+(labels[data.name]||data.name||"工具")+" · "+(data.ok?"已完成":"失败")+(Number.isFinite(data.elapsed_ms)?" · "+Math.round(data.elapsed_ms)+" ms":"");
+ if(data.result_summary)entry.item.append(node("pre",data.result_summary));
+}
+async function json(url,options){
+ const r=await fetch(url,options);if(!r.ok){const body=await r.json().catch(()=>({}));throw Error(typeof body.detail==="string"?body.detail:"请求失败（"+r.status+"）");}return r.json();
+}
+async function docs(){
+ const {documents}=await json("/documents");const wrap=$("documents");wrap.replaceChildren();
+ for(const d of documents){
+  const item=node("div",undefined,"file"), info=node("div");const name=node("strong",d.name);name.title=d.name;info.append(name,node("small",d.chunks+" 个切片"));item.append(node("span","▤"),info);
+  if(d.uploaded){const b=node("button","删除","icon");b.setAttribute("aria-label","删除 "+d.name);b.onclick=async()=>{
+   if(!confirm("删除 "+d.name+"？"))return;b.disabled=true;
+   try{await json("/documents/"+encodeURIComponent(d.id),{method:"DELETE"});$("notice").textContent="已移除 "+d.name;$("preview").hidden=true;await docs();}
+   catch(e){$("notice").textContent=e.message;b.disabled=false;}
+  };item.append(b);}wrap.append(item);
+ }
+}
+async function upload(files){
+ if(uploading||!files.length)return;uploading=true;$("drop").disabled=true;const notes=[];
+ try{
+  for(const file of files){
+   $("notice").textContent="正在解析 "+file.name;
+   try{const d=await json("/documents/upload?filename="+encodeURIComponent(file.name),{method:"PUT",body:file});notes.push(file.name+" 已入库");
+    $("preview").querySelector("pre").textContent=d.preview||"";$("preview").hidden=false;
+   }catch(e){notes.push(file.name+"："+e.message);}
+  }
+  await docs();
+ }catch(e){notes.push(e.message);}
+ finally{$("notice").textContent=notes.join("\n");$("drop").disabled=false;$("files").value="";uploading=false;}
+}
+function clearThread(){
+ for(const el of $("thread").querySelectorAll(".message"))el.remove();$("welcome").hidden=false;lastSources=[];showSources();if($("drawer").classList.contains("open"))drawer(false);
+}
+async function sessions(){
+ const {sessions}=await json("/sessions");const wrap=$("sessions");wrap.replaceChildren();
+ if(!sessions.length)wrap.append(node("p","发起对话后会显示在这里。","hint"));
+ for(const item of sessions){
+  const button=node("button",item.title||"会话 "+item.id.slice(0,8),"session");button.title=item.title||item.id;
+  button.setAttribute("aria-current",String(session===item.id));button.disabled=pending;button.onclick=()=>restore(item.id);wrap.append(button);
+ }
+}
+async function restore(id, navigate=true){
+ if(pending)return;const version=++navVersion;
+ try{
+  const data=await json("/sessions/"+encodeURIComponent(id));if(version!==navVersion||pending)return;
+  session=id;
+  if(navigate && location.hash!=="#chat/"+id)history.pushState(null,"","#chat/"+id);
+  clearThread();$("conversation-title").textContent=data.messages.find(m=>m.role==="user")?.content.slice(0,48)||"新会话";let index=0;
+  for(const m of data.messages){
+   if(!["user","assistant"].includes(m.role))continue;
+   const view=message(m.role,m.content);
+   if(m.role==="assistant"){
+    const saved=data.traces[index++]; const trace=Array.isArray(saved)?saved:saved?.trace;const sources=Array.isArray(saved)?[]:saved?.sources||[];
+    if(trace?.length){const list=timeline(view.row,view.bubble);for(const t of trace)finishTrace(traceEntry(list,t),t);}
+    answerText(view.bubble,m.content,sources);lastSources=sources;
+   }
+  }
+  showSources(lastSources);menu(false);scroll();await sessions();
+ }catch(e){$("notice").textContent=e.message;}
+}
+async function readEvents(response,handle){
+ if(!response.body)throw Error("响应缺少流式内容");
+ const reader=response.body.getReader(), decoder=new TextDecoder();let buffer="";
+ function frame(block){
+  let kind="message";const values=[];
+  for(const line of block.split(/\r?\n/)){
+   if(line.startsWith("event:"))kind=line.slice(6).trim();
+   if(line.startsWith("data:"))values.push(line.slice(5).trimStart());
+  }
+  if(values.length)handle(kind,JSON.parse(values.join("\n")));
+ }
+ try{
+  while(true){
+   const {value,done}=await reader.read();
+   buffer+=done?decoder.decode():decoder.decode(value,{stream:true});
+   let boundary;while((boundary=/\r?\n\r?\n/.exec(buffer))){frame(buffer.slice(0,boundary.index));buffer=buffer.slice(boundary.index+boundary[0].length);}
+   if(done){if(buffer.trim())frame(buffer);break;}
+  }
+ }finally{reader.releaseLock();}
+}
+$("form").onsubmit=async ev=>{
+ ev.preventDefault();const question=$("query").value.trim();if(!question||pending)return;
+ ++navVersion;pending=true;$("send").disabled=true;$("new").disabled=true;for(const b of $("sessions").querySelectorAll("button"))b.disabled=true;
+ if(location.hash!=="#chat/"+session)history.pushState(null,"","#chat/"+session);
+ if($("welcome").hidden===false)$("conversation-title").textContent=question.slice(0,48);
+ $("query").value="";message("user",question);const view=message("assistant");const log=timeline(view.row,view.bubble);
+ const state=node("div","正在准备请求…");log.append(state);const inflight=[];
+ let sources=[],text="",finished=false,failed=false;lastSources=[];showSources();scroll();
+ try{
+  const r=await fetch("/chat/stream",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:question,session_id:session,mode:"auto"})});
+  if(!r.ok)throw Error("请求失败（"+r.status+"）");
+  await readEvents(r,(kind,data)=>{
+   if(kind==="status")state.textContent=data.message||"正在处理…";
+   if(kind==="tool"&&data.phase==="start"){state.textContent="正在执行 "+data.name;inflight.push({name:data.name,...traceEntry(log,data)});}
+   if(kind==="tool"&&data.phase==="end"){
+    const index=inflight.findIndex(t=>t.name===data.name);finishTrace(index<0?traceEntry(log,data):inflight.splice(index,1)[0],data);
+    state.textContent="工具返回，等待下一步…";
+   }
+   if(kind==="sources"){sources=data.sources||[];lastSources=sources;showSources(sources);state.textContent="已找到 "+sources.length+" 条证据，正在返回回答…";}
+   if(kind==="token"){text+=data.text||"";answerText(view.bubble,text,sources);}
+   if(kind==="error"){failed=true;state.textContent=data.message||"请求失败";}
+   if(kind==="done"){
+    finished=true;sources=data.sources||sources;lastSources=sources;if(failed||!text)text=data.answer||text;
+    answerText(view.bubble,text,sources);if(!failed)state.textContent="已完成"+(Number.isFinite(data.steps)?" · "+data.steps+" 轮决策":"");
+   }
+   scroll();
+  });
+  if(!finished)throw Error("连接中断，回答未完整返回");
+ }catch(e){state.textContent=e.message;if(!text)view.bubble.textContent="本轮未收到回答，请重试。";}
+ finally{pending=false;$("send").disabled=false;$("new").disabled=false;await sessions().catch(()=>{});$("query").focus();}
+};
+$("query").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey&&!e.isComposing){e.preventDefault();$("form").requestSubmit();}};
+$("new").onclick=()=>{if(pending)return;++navVersion;session=crypto.randomUUID();history.pushState(null,"",location.pathname+location.search);clearThread();$("conversation-title").textContent="新会话";menu(false);sessions().catch(()=>{});$("query").focus();};
+$("evidence").onclick=e=>{showSources(lastSources);drawer(true,e.currentTarget);};
+$("close").onclick=()=>drawer(false);
+$("menu").onclick=()=>menu(!$("sidebar").classList.contains("open"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){if($("drawer").classList.contains("open"))drawer(false);else menu(false);}});
+$("drop").onclick=()=>$("files").click();$("files").onchange=e=>upload([...e.target.files]);
+$("drop").ondragover=e=>{e.preventDefault();$("drop").classList.add("over");};
+$("drop").ondragleave=()=>$("drop").classList.remove("over");
+$("drop").ondrop=e=>{e.preventDefault();$("drop").classList.remove("over");upload([...e.dataTransfer.files]);};
+for(const btn of document.querySelectorAll(".example"))btn.onclick=()=>{$("query").value=btn.textContent;$("query").focus();};
+function restoreLocation(){
+ const id=/^#chat\/([A-Za-z0-9_-]{1,80})$/.exec(location.hash)?.[1];
+ if(pending)return;
+ if(id){restore(id,false);return;}
+ ++navVersion;session=crypto.randomUUID();clearThread();$("conversation-title").textContent="新会话";sessions().catch(()=>{});
+}
+window.addEventListener("popstate",restoreLocation);
+if(location.hash)restoreLocation();
+json("/health").then(d=>{$("health").textContent=d.llm_configured?"模型已配置":"等待模型配置";}).catch(()=>{$("health").textContent="服务不可用";});
+docs().catch(e=>{$("notice").textContent=e.message;});sessions().catch(()=>{$("sessions").textContent="暂时无法读取会话";});showSources();
+</script></body></html>

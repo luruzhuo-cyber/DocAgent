@@ -55,3 +55,14 @@ GET /health：索引数量、模型是否配置、检索策略；不返回密钥
 真实本地模型结果与边界见 EVALUATION.md；云端答案、工具决策效果和 Agent 端到端延迟仍需要有效 API Key 与人工复核。
 
 50题真实模型HTTP结果：见 LIVE_EVALUATION.md 和 reports/live-http.json。正常返回50/50，平均决策2.1轮，CPU热启动端到端P95约23.78秒；不可将正常返回率当作答案准确率。
+
+## Windows CMD 启动与文档管理
+
+在项目目录执行 start.cmd，再打开 http://127.0.0.1:8011。PowerShell 可执行 .\start.ps1。
+已有环境可运行 .venv\Scripts\python.exe -m pip install -r requirements.txt 更新解析依赖。
+
+首页可导入 Markdown、UTF-8 TXT、DOCX 和文本型 PDF，查看解析预览与当前文件清单。
+DOCX 提取普通段落、标题和表格。PDF 提取文字层并保留页码标题。
+图片 PNG、JPEG、WebP 使用本机 Tesseract OCR，需要把 tesseract 加入 PATH 并安装 chi_sim 和 eng 语言包。可通过 OCR_LANG 修改语言。纯扫描 PDF 请先转图片。本地解析后的文本保存在 corpus/uploads/，已被 Git 忽略。
+删除上传文档会使后续请求重新加载索引。已开始的请求使用各自的索引快照。
+Agent 的 list_documents 查看库内文件，search_docs 和 read_section 使用解析后的文字。首页可以恢复既有会话并查看新产生的工具轨迹。此版本仍为本机单用户服务，调用云模型时，检索到的证据会发送给配置的模型服务。

@@ -233,3 +233,4 @@ data/
 *.log
 .model-cache/
 private-evidence/
+/corpus/uploads/
